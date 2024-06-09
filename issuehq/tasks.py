@@ -1,4 +1,3 @@
-from issuehq.app import huey
 from issuehq.models import Issue, Repository
 from issuehq.collections import wclient
 import requests
@@ -7,8 +6,12 @@ from issuehq.db import db
 from bs4 import BeautifulSoup
 from markdown import markdown
 from playhouse.shortcuts import model_to_dict
+
+from huey import SqliteHuey
+
 import os
 
+huey = SqliteHuey("issuehq", filename="huey.db")
 
 def markdown_to_plaintext(markdown_text):
     cleaned_text = re.sub(r"```.*?```", "", markdown_text, 0, re.DOTALL)
@@ -27,7 +30,7 @@ def fetch_issues(repository_id):
         response = requests.get(
             url,
             params={"per_page": 100},
-            headers={"Authorization": f"Bearer {os.getenv("GITHUB_ACCESS_TOKEN")}"},
+            headers={"Authorization": f"Bearer {os.getenv('GITHUB_ACCESS_TOKEN')}"},
         )
         data = response.json()
 
