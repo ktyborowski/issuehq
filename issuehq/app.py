@@ -234,14 +234,14 @@ def get_issue_summary(public_id: str):
     elif model == "ollama":
         collection = wclient.collections.get("Issue")
 
-        response = collection.generate.near_text(
-            query="Feature",  # The model provider integration will automatically vectorize the query
-            single_prompt="Summarize the following issue: {body}",
-            target_vector="body",
+        prompt = "Summarize the following issue: {body}"
+
+        response = collection.generate.fetch_objects(
+            single_prompt=prompt,
             filters=wvc.query.Filter.by_property("public_id").equal(public_id),
             limit=1,
         )
-
+  
         result = response.objects.pop()
         content = result.generated
     else:
