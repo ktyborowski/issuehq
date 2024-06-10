@@ -7,7 +7,7 @@ Advanced AI search across you GitHub Issues. Powered by Weaviate.
 
 Import issues directly from your GitHub repositories.
 
-![](https://github.com/ktyborowski/issuehq/blob/main/demosimport-demo.gif)
+![](https://github.com/ktyborowski/issuehq/blob/main/demos/import-demo.gif)
 
 ### Advanced search
 
