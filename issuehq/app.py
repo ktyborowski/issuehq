@@ -212,7 +212,7 @@ def get_issue_summary(public_id: str):
                 operator: Equal
                 valueString: "{public_id}"
               }}
-              limit: 2
+              limit: 1
             ) {{
               title
               _additional {{
@@ -229,7 +229,6 @@ def get_issue_summary(public_id: str):
         """
 
         result = wclient.graphql_raw_query(query)
-        print("RES", result)
         content = result.get["Issue"][0]["_additional"]["summary"][0]["result"]
     elif model == "ollama":
         collection = wclient.collections.get("Issue")
